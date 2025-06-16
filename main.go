@@ -9,6 +9,10 @@ import (
 )
 
 func main() {
+	if len(os.Args) != 2 {
+		log.Fatal("Usage: goremod <new/module/name>")
+	}
+	newModule := os.Args[1]
 	// define all flags
 	from := flag.String("from", "", "current module name")
 	to := flag.String("to", "", "new module name")
@@ -24,7 +28,9 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to parse go.mod: invalid or corrupted format.")
 	}
+	curModule := mf.Module.Mod.Path
 
-	fmt.Println("nom du module :", mf.Module.Mod.Path)
+	fmt.Println("nom du module :", curModule)
+	fmt.Println(newModule)
 	fmt.Println("hello world!", *from, *to)
 }
