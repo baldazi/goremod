@@ -6,6 +6,7 @@ import (
 	"golang.org/x/mod/modfile"
 	"log"
 	"os"
+	"os/exec"
 )
 
 func main() {
@@ -33,4 +34,12 @@ func main() {
 	fmt.Println("nom du module :", curModule)
 	fmt.Println(newModule)
 	fmt.Println("hello world!", *from, *to)
+
+	// changing the module name
+	cmd := exec.Command("go", "mod", "edit", "-module", newModule)
+	output, err := cmd.CombinedOutput()
+
+	if err != nil {
+		log.Fatalf("Failed to run command: %v\nOutput: %s", err, string(output))
+	}
 }
