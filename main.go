@@ -7,6 +7,8 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
+	"strings"
 )
 
 func main() {
@@ -41,5 +43,23 @@ func main() {
 
 	if err != nil {
 		log.Fatalf("Failed to run command: %v\nOutput: %s", err, string(output))
+	}
+
+	// find all go file
+
+	root := "./" // root directory
+
+	err = filepath.WalkDir(root, func(path string, d os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if !d.IsDir() && strings.HasSuffix(d.Name(), ".go") {
+			fmt.Println(path)
+		}
+		return nil
+	})
+
+	if err != nil {
+		fmt.Println("An error occur when exploring :", err)
 	}
 }
