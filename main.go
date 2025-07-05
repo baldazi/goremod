@@ -88,7 +88,9 @@ func processFiles(files []string, oldImportBase string, newImportBase string) {
 				if err := os.WriteFile(f, []byte(strings.Join(lines, "\n")), 0644); err != nil {
 					log.Fatalf("Error writing : %v", err)
 				}
-				fmt.Println(statusDone(changedLines, "✔️ Modified", "▬There is no need for a replacement"))
+				fmt.Println(statusDone(changedLines, "✔️ Modified", "Lines Replaced"))
+			}else{
+				fmt.Println(statusNoChange("No replacement is needed"))
 			}
 
 		}
