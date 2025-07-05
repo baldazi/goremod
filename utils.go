@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -10,13 +10,13 @@ import (
 	lg "github.com/charmbracelet/lipgloss"
 )
 
-func listFile(dir string) []string{
+func listFile(dir string) []string {
 	var files []string
-	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error{
-		if err != nil{
+	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
 			return err
 		}
-		if !info.IsDir() && strings.HasSuffix(info.Name(), ".go"){
+		if !info.IsDir() && strings.HasSuffix(info.Name(), ".go") {
 			files = append(files, path)
 		}
 
@@ -33,28 +33,27 @@ func listFile(dir string) []string{
 
 func fileHeader(filename string, msg string) string {
 	return lg.NewStyle().
-	Foreground(lg.Color(69)).
-	Bold(true).
-	Render(fmt.Sprintf("%s : %s", msg, filename))
+		Foreground(lg.Color(69)).
+		Bold(true).
+		Render(fmt.Sprintf("%s : %s", msg, filename))
 }
 
-func statusDone(lines int, statusMsg string, msg string) string{
+func statusDone(lines int, statusMsg string, msg string) string {
 	check := lg.NewStyle().
-	Foreground(lg.Color("42")).
-	Bold(true).
-	Render(statusMsg)
+		Foreground(lg.Color("42")).
+		Bold(true).
+		Render(statusMsg)
 
 	count := lg.NewStyle().
-	Foreground(lg.Color("241")).
-	Bold(true).
-	Render(fmt.Sprintf("%d %msg", lines, msg))
+		Foreground(lg.Color("241")).
+		Bold(true).
+		Render(fmt.Sprintf("%d %msg", lines, msg))
 
 	return fmt.Sprintf("%s %s", check, count)
 }
 
-func statusNoChange(msg string) string{
+func statusNoChange(msg string) string {
 	return lg.NewStyle().
-			Foreground(lg.Color("245")).
-			Render(msg)
+		Foreground(lg.Color("245")).
+		Render(msg)
 }
-
