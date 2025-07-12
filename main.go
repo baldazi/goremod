@@ -83,16 +83,15 @@ func processFiles(files []string, oldImportBase string, newImportBase string) {
 					changedLines++
 				}
 			}
+		}
 
-			if changedLines > 0 {
-				if err := os.WriteFile(f, []byte(strings.Join(lines, "\n")), 0644); err != nil {
-					log.Fatalf("Error writing : %v", err)
-				}
-				fmt.Println(statusDone(changedLines, "✔️ Modified", "Lines Replaced"))
-			}else{
-				fmt.Println(statusNoChange("No replacement is needed"))
+		if changedLines > 0 {
+			if err := os.WriteFile(f, []byte(strings.Join(lines, "\n")), 0644); err != nil {
+				log.Fatalf("Error writing : %v", err)
 			}
-
+			fmt.Println(statusDone(changedLines, "✔️ Modified", "Lines Replaced"))
+		} else {
+			fmt.Println(statusNoChange("No replacement is needed"))
 		}
 	}
 }

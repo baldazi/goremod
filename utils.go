@@ -47,7 +47,7 @@ func statusDone(lines int, statusMsg string, msg string) string {
 	count := lg.NewStyle().
 		Foreground(lg.Color("241")).
 		Bold(true).
-		Render(fmt.Sprintf("%d %msg", lines, msg))
+		Render(fmt.Sprintf("%d %s", lines, msg))
 
 	return fmt.Sprintf("%s %s", check, count)
 }
